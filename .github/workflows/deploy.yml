@@ -1,0 +1,39 @@
+    name: Deploy Next.js to GitHub Pages
+
+    on:
+      push:
+        branches:
+          - main # O la rama principal de tu proyecto (ej: master)
+
+    jobs:
+      build-and-deploy:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Checkout 🛎️
+          uses: actions/checkout@v4 # Usa la versión 4
+
+        - name: Setup Node.js
+          uses: actions/setup-node@v4 # Usa la versión 4
+          with:
+            node-version: '20' # Puedes ajustar la versión de Node.js
+
+        - name: Install dependencies ⚙️
+          run: npm install
+
+        - name: Build Next.js project 🏗️
+          run: npm run build
+
+        - name: Deploy to GitHub Pages 🚀
+          uses: peaceiris/actions-gh-pages@v3 # Este es un Action popular para desplegar
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./out # La carpeta que Next.js exporta
+            # Si tu GitHub Pages se publica en la raíz de un dominio (ej: username.github.io)
+            # o usas un CNAME para un dominio personalizado, puedes omitir esta línea
+            # y asegurarte de que basePath en next.config.js sea '/'.
+            # Si se publica en un subdirectorio (ej: username.github.io/repo-name),
+            # necesitas la siguiente línea y el basePath en next.config.js
+            # branch: gh-pages # Descomenta esta línea si quieres desplegar a una rama gh-pages separada
+
+    
