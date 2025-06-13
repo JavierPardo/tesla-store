@@ -22,18 +22,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-105">
       <Link href={`/producto/${product.id}`}>
-        <a>
+        
           <img
             src={product.imageUrl}
             alt={product.name}
             className="w-full h-48 object-cover object-center"
           />
-        </a>
+        
       </Link>
       <div className="p-4">
         <h3 className="text-lg font-semibold text-gray-800 truncate">
           <Link href={`/producto/${product.id}`}>
-            <a className="hover:text-blue-600">{product.name}</a>
+            <label className="hover:text-blue-600">{product.name}</label>
           </Link>
         </h3>
         <p className="text-gray-600 mt-1">${product.price.toFixed(2)}</p>

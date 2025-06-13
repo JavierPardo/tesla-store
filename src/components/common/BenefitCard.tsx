@@ -18,9 +18,9 @@ const BenefitCard: React.FC<BenefitCardProps> = ({ icon: Icon, title, descriptio
       <p className="text-gray-600 mb-4 flex-grow">{description}</p>
       {linkHref && linkText && (
         <Link href={linkHref}>
-          <a className="text-blue-600 hover:text-blue-800 font-semibold mt-auto">
+          <label className="text-blue-600 hover:text-blue-800 font-semibold mt-auto">
             {linkText} &rarr;
-          </a>
+          </label>
         </Link>
       )}
     </div>

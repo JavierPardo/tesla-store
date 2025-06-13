@@ -7,22 +7,22 @@ const Navbar: React.FC = () => {
     <nav className="bg-white shadow-md p-4">
       <div className="container mx-auto flex justify-between items-center">
         <Link href="/">
-          <a className="text-2xl font-bold text-blue-600">Impresoras 3D Store</a>
+          <label className="text-2xl font-bold text-blue-600">Impresoras 3D Store</label>
         </Link>
         <ul className="flex space-x-6">
           <li>
             <Link href="/impresoras">
-              <a className="text-gray-700 hover:text-blue-600 font-medium">Impresoras</a>
+              <label className="text-gray-700 hover:text-blue-600 font-medium">Impresoras</label>
             </Link>
           </li>
           <li>
             <Link href="/insumos">
-              <a className="text-gray-700 hover:text-blue-600 font-medium">Insumos</a>
+              <label className="text-gray-700 hover:text-blue-600 font-medium">Insumos</label>
             </Link>
           </li>
           <li>
             <Link href="/servicio-tecnico">
-              <a className="text-gray-700 hover:text-blue-600 font-medium">Servicio Técnico</a>
+              <label className="text-gray-700 hover:text-blue-600 font-medium">Servicio Técnico</label>
             </Link>
           </li>
           {/* Opcional: Icono de carrito, búsqueda, etc. */}

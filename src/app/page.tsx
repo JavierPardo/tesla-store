@@ -1,103 +1,85 @@
-import Image from "next/image";
+// pages/index.tsx (or a suitable page)
+import React from 'react';
+import Layout from '../components/layout/Layout';
+import BenefitCard from '../components/common/BenefitCard';
 
-export default function Home() {
+// Example SVG Icons (In a real app, import from @heroicons/react or your own icon library)
+// For simplicity, let's define them here.
+const SupportIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.867 0-1.396-.154-1.474-.223a4.298 4.298 0 010-6.174c.078-.069.607-.223 1.474-.223H17.5c.867 0 1.396.154 1.474.223a4.298 4.298 0 010 6.174c-.078.069-.607.223-1.474.223H3.697z" />
+  </svg>
+);
+
+const PrinterIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+  </svg>
+);
+
+const SpoolIcon = (props: React.SVGProps<SVGSVGElement>) => (
+  <svg {...props} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 6.75h1.5M8.25 10.5h1.5M19.5 10.5h1.5m-3.75 6.75h3.75M3 13.5l5.25 5.25c.414.414 1.086.414 1.5 0L19.5 7.5m-9-6a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+
+const HomePage: React.FC = () => {
+  const benefits = [
+    {
+      icon: SupportIcon,
+      title: 'Soporte Técnico Especializado',
+      description: 'Nuestro equipo de expertos te brinda asistencia rápida y efectiva para cualquier problema con tu impresora 3D.',
+      linkHref: '/servicio-tecnico',
+      linkText: 'Ver Servicio Técnico',
+    },
+    {
+      icon: PrinterIcon,
+      title: 'Amplio Catálogo de Impresoras',
+      description: 'Encuentra la impresora 3D perfecta para tus necesidades, desde modelos para principiantes hasta profesionales.',
+      linkHref: '/impresoras',
+      linkText: 'Explorar Impresoras',
+    },
+    {
+      icon: SpoolIcon,
+      title: 'Insumos de Calidad Premium',
+      description: 'Filamentos, resinas y accesorios de las mejores marcas para garantizar resultados excepcionales en tus proyectos.',
+      linkHref: '/insumos',
+      linkText: 'Comprar Insumos',
+    },
+    {
+        icon: SupportIcon, // Reusing icon for demonstration
+        title: 'Garantía y Confianza',
+        description: 'Todos nuestros productos cuentan con garantía oficial. Compra con la tranquilidad de estar respaldado.',
+        // No link for this benefit, just description
+    },
+  ];
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <Layout>
+      <section className="py-12 bg-gray-50">
+        <div className="container mx-auto px-4">
+          <h2 className="text-3xl font-bold text-gray-900 text-center mb-10">
+            ¿Por Qué Elegirnos?
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {benefits.map((benefit, index) => (
+              <BenefitCard
+                key={index}
+                icon={benefit.icon}
+                title={benefit.title}
+                description={benefit.description}
+                linkHref={benefit.linkHref}
+                linkText={benefit.linkText}
+              />
+            ))}
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      </section>
+
+      {/* Other sections of your homepage */}
+    </Layout>
   );
-}
+};
+
+export default HomePage;
