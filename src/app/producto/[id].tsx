@@ -1,63 +1,16 @@
 // pages/producto/[id].tsx
-import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-import Layout from '../../components/layout/Layout';
-import Spinner from '../../components/common/Spinner';
-import Button from '../../components/common/Button'; // Componente de botón
+import { GetStaticProps, GetStaticPaths } from 'next';
 import { Product } from '../../types/product';
-import { fetchProducts } from '../../utils/api'; // Reutilizamos la función para obtener productos
+import { fetchProducts } from '../../utils/api'; // Your data fetching utility
+import Layout from '@/components/layout/Layout';
+import Button from '@/components/common/Button';
 
-const ProductDetailPage: React.FC = () => {
-  const router = useRouter();
-  const { id } = router.query;
-  const [product, setProduct] = useState<Product | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+interface ProductDetailProps {
+  product: Product;
+}
 
-  useEffect(() => {
-    if (id) {
-      const getProduct = async () => {
-        setLoading(true);
-        setError(null);
-        try {
-          // En una API real, tendrías un endpoint específico para obtener un producto por ID
-          const allProducts = await fetchProducts('impresoras'); // Obtenemos todos para simular búsqueda
-          const foundProduct = allProducts.find((p) => p.id === id);
-          if (foundProduct) {
-            setProduct(foundProduct);
-          } else {
-            setError('Producto no encontrado.');
-          }
-        } catch (err) {
-          setError('No se pudo cargar el producto.');
-          console.error(err);
-        } finally {
-          setLoading(false);
-        }
-      };
-      getProduct();
-    }
-  }, [id]);
+const ProductDetailPage: React.FC<ProductDetailProps> = ({ product }) => {
 
-  if (loading) {
-    return (
-      <Layout>
-        <div className="flex justify-center items-center h-screen-75">
-          <Spinner />
-        </div>
-      </Layout>
-    );
-  }
-
-  if (error) {
-    return (
-      <Layout>
-        <div className="text-center text-red-600 mt-8">
-          <p>{error}</p>
-        </div>
-      </Layout>
-    );
-  }
 
   if (!product) {
     return (
@@ -124,6 +77,32 @@ const ProductDetailPage: React.FC = () => {
       </div>
     </Layout>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const products = await fetchProducts('impresoras'); // Fetch all products
+  const paths = products.map((product) => ({
+    params: { id: product.id },
+  }));
+
+  return { paths, fallback: false }; // fallback: false means 404 for unlisted paths
+  // Use fallback: true or 'blocking' if you want to generate pages on demand (not suitable for GitHub Pages static export)
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const productId = params?.id as string;
+  const allProducts = await fetchProducts('impresoras');
+  const product = allProducts.find((p) => p.id === productId);
+
+  if (!product) {
+    return { notFound: true };
+  }
+
+  return {
+    props: {
+      product,
+    },
+  };
 };
 
 export default ProductDetailPage;
