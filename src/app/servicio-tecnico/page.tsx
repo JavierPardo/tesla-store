@@ -1,8 +1,9 @@
+"use client";
 // pages/servicio-tecnico.tsx
+import Button from '@/components/common/Button';
+import Layout from '@/components/layout/Layout';
+import Input from '@/components/ui/Input';
 import React, { useState } from 'react';
-import Layout from '../components/layout/Layout';
-import Input from '../components/ui/Input';
-import Button from '../components/common/Button';
 
 const ServicioTecnicoPage: React.FC = () => {
   const [formData, setFormData] = useState({
