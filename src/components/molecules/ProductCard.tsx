@@ -1,45 +1,35 @@
-import { CheckCircle2, ShoppingCart, Sparkles } from "lucide-react";
-import { CardImage } from "../atoms/CardImage";
-import { Button } from "../atoms/Button";
 import { Product } from "@/types";
+import { StarRating } from "./StarRating";
+import { CardButton } from "../atoms/CardButton";
 
 interface ProductCardProps {
   product: Product;
-  onViewDetails: (product: Product) => void; // Función para ver detalles
+  isSupply?: boolean;
 }
 
-export const ProductCard: React.FC<ProductCardProps> = ({ product, onViewDetails }) => {
+export const ProductCard: React.FC<ProductCardProps> = ({ product, isSupply = false }) => {
+
   return (
-    <div className="bg-gray-100 border border-gray-200 rounded-2xl shadow-xl overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-3xl relative">
-      {/* Etiquetas "Nuevo" y "Destacado" condicionales */}
-      {product.isNew && (
-        <span className="absolute top-3 left-3 bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-md animate-pulse">
-          <Sparkles className="inline-block mr-1" size={14} /> Nuevo
-        </span>
-      )}
-      {product.isFeatured && (
-        <span className="absolute top-3 right-3 bg-yellow-500 text-gray-900 text-xs font-bold px-3 py-1 rounded-full shadow-md">
-          <Sparkles className="inline-block mr-1" size={14} /> Destacado
-        </span>
-      )}
-      <CardImage src={product.image} alt={product.name} className="rounded-t-2xl" />
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 transform hover:-translate-y-1 hover:shadow-xl border border-gray-200">
+      <img
+        src={product.image}
+        alt={product.name}
+        className="w-full h-48 object-cover"
+        onError={(e) => { e.currentTarget.src = 'https://placehold.co/400x300/cccccc/333333?text=Imagen+no+disponible'; }}
+      />
       <div className="p-6">
-        <h3 className="text-2xl font-bold text-gray-900 mb-3">{product.name}</h3>
-        <p className="text-gray-700 text-sm mb-4 line-clamp-3">{product.description}</p>
-        {/* Lista de características si existen */}
-        {product.features && (
-          <ul className="text-sm text-gray-600 mb-4 space-y-1">
-            {product.features.map((feature, idx) => (
-              <li key={idx} className="flex items-center"><CheckCircle2 size={16} className="text-green-500 mr-2 flex-shrink-0" />{feature}</li>
-            ))}
-          </ul>
-        )}
-        <div className="flex justify-between items-center mt-5">
-          <span className="text-3xl font-extrabold text-green-700">${product.price.toFixed(2)}</span>
-          <Button variant="primary" icon={ShoppingCart} onClick={() => onViewDetails(product)} className="px-5 py-2">
-            Ver Detalles
-          </Button>
+        <h3 className="font-semibold text-xl mb-2 text-gray-900">{product.name}</h3>
+        <p className="text-gray-600 text-sm mb-4">{product.description}</p>
+        <div className="flex items-center justify-between mb-4">
+          <span className="text-blue-600 font-bold text-lg">${product.price.toFixed(2)}</span>
+          <div className="flex items-center">
+            <StarRating rating={product.rating} />
+            <span className="text-gray-500 text-xs ml-1">({product.reviewsCount})</span>
+          </div>
         </div>
+        <CardButton href={'/tesla-store/impresoras/'}>
+          {isSupply ? 'Añadir al Carrito' : 'Ver Detalles'}
+        </CardButton>
       </div>
     </div>
   );

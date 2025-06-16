@@ -10,9 +10,15 @@ interface ProductDetailTemplateProps {
 }
 
 export const ProductDetailTemplate: React.FC<ProductDetailTemplateProps> = ({ product, onBackToList }) => {
+  var featuredSpecs=[];
+  if(product.specs)
+  for(const spec in product.specs){
+featuredSpecs.push({label: spec, value: product.specs[spec]});
+  }
+
   return (
     <div className="min-h-screen bg-gray-50 font-['Inter'] text-gray-800">
-      <Header activeSection="" setActiveSection={() => {}} onGoHome={onBackToList} /> {/* Simplificado para la página de detalle */}
+      <Header /> {/* Simplificado para la página de detalle */}
       <main className="container mx-auto py-12 px-4">
         <section className="p-8 rounded-2xl shadow-2xl bg-white animate-fade-in-up">
           <Button variant="ghost" onClick={onBackToList} className="mb-8 text-blue-600 hover:underline">
@@ -38,22 +44,11 @@ export const ProductDetailTemplate: React.FC<ProductDetailTemplateProps> = ({ pr
                 {product.longDescription || 'No hay una descripción completa disponible para este producto en este momento.'}
               </p>
 
-              {product.features && product.features.length > 0 && (
-                <>
-                  <h2 className="text-2xl font-bold text-gray-900 mb-3">Características Destacadas</h2>
-                  <ul className="list-disc list-inside text-gray-700 text-lg mb-6 space-y-2">
-                    {product.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center"><CheckCircle2 size={18} className="text-green-500 mr-2 flex-shrink-0" />{feature}</li>
-                    ))}
-                  </ul>
-                </>
-              )}
-
-              {product.specs && product.specs.length > 0 && (
+              {featuredSpecs.length > 0 && (
                 <>
                   <h2 className="text-2xl font-bold text-gray-900 mb-3">Especificaciones Técnicas</h2>
                   <div className="bg-gray-100 p-4 rounded-lg mb-6">
-                    {product.specs.map((spec, idx) => (
+                    {featuredSpecs.map((spec, idx) => (
                       <div key={idx} className="flex justify-between py-1 border-b border-gray-200 last:border-b-0">
                         <span className="font-semibold text-gray-700">{spec.label}:</span>
                         <span className="text-gray-800">{spec.value}</span>

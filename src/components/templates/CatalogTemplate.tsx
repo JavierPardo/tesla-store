@@ -25,13 +25,8 @@ interface CatalogTemplateProps {
 export const CatalogTemplate: React.FC<CatalogTemplateProps> = ({ activeSection, products, services, testimonials, setActiveSection, onViewProductDetails, onGoHome }) => {
   return (
     <>
-      <Header activeSection={activeSection} setActiveSection={setActiveSection} onGoHome={onGoHome} />
+      <Header />
       <HeroSection
-        title="Descubre el Futuro de la Fabricación"
-        subtitle="Ofrecemos la más amplia selección de impresoras 3D, insumos de alta calidad y un servicio técnico experto para todas tus necesidades."
-        ctaText="Explorar Impresoras"
-        ctaOnClick={() => setActiveSection('impresoras')}
-        imageUrl="https://placehold.co/1920x500/1D4ED8/FDFDFD?text=Innovacion+en+Impresion+3D"
       />
       <main className="container mx-auto py-12 px-4">
         {activeSection === 'impresoras' && (
